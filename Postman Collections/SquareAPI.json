@@ -160,7 +160,7 @@
       "id": "f4bf6844-f870-4af7-be01-f9b92ed3b1ef"
     },
     {
-      "name": "New Folder",
+      "name": "Get Payment",
       "item": [],
       "id": "267303a2-a553-431a-8ad6-a2cae450da2b"
     }
@@ -189,13 +189,13 @@
   ],
   "variable": [
     {
-      "id": "b34b7be6-6846-434b-9288-4276443466e2",
+      "id": "2840a4c3-521f-43b3-9669-645ae91491a9",
       "key": "baseurl",
       "value": "https://connect.squareupsandbox.com",
       "type": "string"
     },
     {
-      "id": "1ed30b1d-ccfb-4c3a-9234-f1bde051abb9",
+      "id": "3a4ad20f-3036-458c-b579-a4b64d07a766",
       "key": "token",
       "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89",
       "type": "string"
