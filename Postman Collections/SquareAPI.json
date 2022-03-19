@@ -161,7 +161,81 @@
     },
     {
       "name": "Get Payment",
-      "item": [],
+      "item": [
+        {
+          "name": "Get payment with valid id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "6e70cf04-1dc5-4f35-bf43-3a3b892cdf44",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "//Check that response contains a value",
+                  "pm.test(\"Response body contains string\", function () {",
+                  "    pm.expect(pm.response.text()).to.include(\"id\");",
+                  "    pm.expect(pm.response.text()).to.include(\"amount\");",
+                  "});",
+                  "",
+                  "// Validate key value pair",
+                  "var test = pm.response.json();",
+                  "pm.test(\"verify status is completed\", function(){",
+                  "    pm.expect(test.payment.status).to.eql(\"COMPLETED\");",
+                  "})",
+                  "",
+                  "// Validate key value pair",
+                  "var test = pm.response.json();",
+                  "pm.test(\"verify status for card details is captured\", function(){",
+                  "    pm.expect(test.payment.card_details.status).to.eql(\"CAPTURED\");",
+                  "})",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2b125f73-415b-4b98-a478-979da89a4a65",
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "8fa55ab4-568c-4b20-9c2c-05f6b544a38f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Square-Version",
+                "value": "2022-03-16"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": "{{baseurl}}/v2/payments/{{id}}"
+          },
+          "response": []
+        }
+      ],
       "id": "267303a2-a553-431a-8ad6-a2cae450da2b"
     }
   ],
@@ -189,13 +263,13 @@
   ],
   "variable": [
     {
-      "id": "2840a4c3-521f-43b3-9669-645ae91491a9",
+      "id": "1606e3aa-d3c9-42b4-94b4-9bedb4165902",
       "key": "baseurl",
       "value": "https://connect.squareupsandbox.com",
       "type": "string"
     },
     {
-      "id": "3a4ad20f-3036-458c-b579-a4b64d07a766",
+      "id": "45c711de-b16d-4f6d-9975-47cef93c32f1",
       "key": "token",
       "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89",
       "type": "string"
