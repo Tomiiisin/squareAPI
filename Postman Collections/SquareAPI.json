@@ -158,6 +158,11 @@
         }
       ],
       "id": "f4bf6844-f870-4af7-be01-f9b92ed3b1ef"
+    },
+    {
+      "name": "New Folder",
+      "item": [],
+      "id": "267303a2-a553-431a-8ad6-a2cae450da2b"
     }
   ],
   "event": [
@@ -184,13 +189,13 @@
   ],
   "variable": [
     {
-      "id": "601ba93f-268a-4873-99f2-b7859e5cef77",
+      "id": "b34b7be6-6846-434b-9288-4276443466e2",
       "key": "baseurl",
       "value": "https://connect.squareupsandbox.com",
       "type": "string"
     },
     {
-      "id": "231d90a6-6b35-4e69-b66b-51e8796d93fa",
+      "id": "1ed30b1d-ccfb-4c3a-9234-f1bde051abb9",
       "key": "token",
       "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89",
       "type": "string"
