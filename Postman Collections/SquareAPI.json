@@ -1,0 +1,201 @@
+{
+  "info": {
+    "_postman_id": "fc48f553-f075-4d48-b4aa-ee5796b5b940",
+    "name": "Square",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create payment",
+      "item": [
+        {
+          "name": "Create payment with valid details",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2f54ab9e-c208-4cb6-aefc-4a0f9290b398",
+                "exec": [
+                  "var number = Math.floor(Math.random() * 100000);",
+                  "var idempotency_key = '6d20997b-a10b-42d6-b7ce-' + number;",
+                  "pm.environment.set(\"idempotency_key\", idempotency_key);",
+                  "",
+                  "var number = Math.floor(Math.random() * 10000);",
+                  "var amount = number;",
+                  "pm.environment.set(\"amount\", amount);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "f4614c84-ca1c-4935-af04-18e27be02b46",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "//Check that response contains a value",
+                  "pm.test(\"Response body contains string\", function () {",
+                  "    pm.expect(pm.response.text()).to.include(\"id\");",
+                  "    pm.expect(pm.response.text()).to.include(\"amount\");",
+                  "});",
+                  "",
+                  "// Validate key value pair",
+                  "var test = pm.response.json();",
+                  "pm.test(\"verify status is completed\", function(){",
+                  "    pm.expect(test.payment.status).to.eql(\"COMPLETED\");",
+                  "})",
+                  "",
+                  "// Validate key value pair",
+                  "var test = pm.response.json();",
+                  "pm.test(\"verify status for card details is captured\", function(){",
+                  "    pm.expect(test.payment.card_details.status).to.eql(\"CAPTURED\");",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "_postman_id": "f3ec8354-3c27-4d18-81f8-8c574599a10e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Square-Version",
+                "value": "2022-03-16"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount_money\": {\n      \"amount\": {{amount}},\n      \"currency\": \"CAD\"\n    },\n    \"idempotency_key\": \"{{idempotency_key}}\",\n    \"source_id\": \"cnon:card-nonce-ok\"\n  }",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{baseurl}}/v2/payments"
+          },
+          "response": []
+        },
+        {
+          "name": "Create payment with an existing idempotent key",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "2f54ab9e-c208-4cb6-aefc-4a0f9290b398",
+                "exec": [
+                  "var number = Math.floor(Math.random() * 10000);",
+                  "var amount = number;",
+                  "pm.environment.set(\"amount\", amount);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "f4614c84-ca1c-4935-af04-18e27be02b46",
+                "exec": [
+                  "pm.test(\"Status code is 400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "// Validate error message",
+                  "var test = pm.response.json();",
+                  "pm.test('The `clientName` contains Seville', () => {",
+                  "    _.each(test.errors, (item) => {",
+                  "        pm.expect(item.code).to.include('IDEMPOTENCY_KEY_REUSED')",
+                  "        pm.expect(item.category).to.include('INVALID_REQUEST_ERROR')",
+                  "    })",
+                  "})",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "_postman_id": "7262d614-cb62-4845-a3a4-7e34ab6cb389",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Square-Version",
+                "value": "2022-03-16"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount_money\": {\n      \"amount\": {{amount}},\n      \"currency\": \"CAD\"\n    },\n    \"idempotency_key\": \"{{used_idempotent_key}}\",\n    \"source_id\": \"cnon:card-nonce-ok\"\n  }",
+              "options": {
+                "raw": {}
+              }
+            },
+            "url": "{{baseurl}}/v2/payments"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "f4bf6844-f870-4af7-be01-f9b92ed3b1ef"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "ee7d5a98-33e6-4404-b351-bc49866c8130",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "8d7fcccc-7e89-4e5f-9692-048828666c09",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "6c3f26c8-7e0c-4503-8590-35e0b8cb95b0",
+      "key": "baseurl",
+      "value": "https://connect.squareupsandbox.com",
+      "type": "string"
+    },
+    {
+      "id": "4478bc21-2759-4893-8710-900c738440c3",
+      "key": "token",
+      "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89",
+      "type": "string"
+    }
+  ]
+}
