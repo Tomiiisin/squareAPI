@@ -263,10 +263,15 @@
   ],
   "variable": [
     {
-      "id": "c5d9b69e-6a39-47cf-befa-10f8efbb426b",
+      "id": "00cab553-cb5e-4884-93d5-30d3d4de1a10",
       "key": "baseurl",
       "value": "https://connect.squareupsandbox.com",
       "type": "string"
+    },
+    {
+      "id": "9fb6b716-8f34-440a-b00e-852d07e1d666",
+      "key": "token",
+      "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89"
     }
   ]
 }
