@@ -243,7 +243,7 @@
     {
       "listen": "prerequest",
       "script": {
-        "id": "ee7d5a98-33e6-4404-b351-bc49866c8130",
+        "id": "25fe70cc-8264-4a12-a566-f4955314d872",
         "type": "text/javascript",
         "exec": [
           ""
@@ -253,7 +253,7 @@
     {
       "listen": "test",
       "script": {
-        "id": "8d7fcccc-7e89-4e5f-9692-048828666c09",
+        "id": "7544f47d-c437-4ddf-9c4b-61441cc2bd6e",
         "type": "text/javascript",
         "exec": [
           ""
@@ -263,15 +263,9 @@
   ],
   "variable": [
     {
-      "id": "1606e3aa-d3c9-42b4-94b4-9bedb4165902",
+      "id": "c5d9b69e-6a39-47cf-befa-10f8efbb426b",
       "key": "baseurl",
       "value": "https://connect.squareupsandbox.com",
-      "type": "string"
-    },
-    {
-      "id": "45c711de-b16d-4f6d-9975-47cef93c32f1",
-      "key": "token",
-      "value": "EAAAEAmt-vLR7pZHmRmgTZOJsYN7XA289IxSqH3AUcWSnFn2Y_SKgtM6lkplcJ89",
       "type": "string"
     }
   ]
